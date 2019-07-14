@@ -6,13 +6,15 @@
 
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { LoginView } from './src';
+import { LoginView, Brontosaurus } from './src';
+
+const config = Brontosaurus.hydrate('', '');
 
 export default function App() {
 
   return (
     <View style={styles.container}>
-      <LoginView />
+      <LoginView config={config} />
     </View>
   );
 }
