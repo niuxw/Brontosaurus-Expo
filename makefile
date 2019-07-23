@@ -35,6 +35,15 @@ build:
 	@echo "[INFO] Building for production"
 	@NODE_ENV=production $(tsc) --p $(build)
 
+tests:
+	@echo "[INFO] Testing with Mocha"
+	@NODE_ENV=test $(mocha)
+
+cov:
+	@echo "[INFO] Testing with Nyc and Mocha"
+	@NODE_ENV=test \
+	nyc $(mocha)
+
 license: clean
 	@echo "[INFO] Sign files"
 	@NODE_ENV=development $(ts_node) script/license.ts
@@ -52,4 +61,4 @@ clean-linux:
 
 publish: install tests license build
 	@echo "[INFO] Publishing package"
-	# @cd app && npm publish --access=public
+	@cd app && npm publish --access=public
