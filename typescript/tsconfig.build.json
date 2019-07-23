@@ -1,0 +1,32 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "alwaysStrict": true,
+        "declaration": true,
+        "jsx": "react-native",
+        "downlevelIteration": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "lib": [
+            "esnext"
+        ],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "outDir": "../app",
+        "removeComments": true,
+        "resolveJsonModule": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "target": "es5",
+    },
+    "exclude": [
+        "node_modules",
+        "test"
+    ],
+    "include": [
+        "../src/**/*"
+    ]
+}

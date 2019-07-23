@@ -1,5 +1,6 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "version": "0.1.0",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -7,6 +8,19 @@
     "web": "expo start --web",
     "eject": "expo eject"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SudoDotDog/Brontosaurus-Expo.git"
+  },
+  "keywords": [
+    "Brontosaurus"
+  ],
+  "author": "WMXPY",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SudoDotDog/Brontosaurus-Expo/issues"
+  },
+  "homepage": "https://github.com/SudoDotDog/Brontosaurus-Expo#readme",
   "dependencies": {
     "@brontosaurus/definition": "^1.6.1",
     "expo": "^33.0.0",
@@ -16,6 +30,7 @@
     "react-native-web": "^0.11.5"
   },
   "devDependencies": {
+    "@sudoo/io": "^1.6.0",
     "@sudoo/triforce": "1.6.0",
     "@types/react": "^16.8.23",
     "@types/react-native": "^0.60.0",
