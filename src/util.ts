@@ -5,10 +5,11 @@
  */
 
 import { LOCAL_STORAGE_KEY, ParsedToken } from "./declare";
+import { AsyncStorage } from 'react-native';
 
-export const getToken = (): string | null => localStorage.getItem(LOCAL_STORAGE_KEY);
-export const storeToken = (token: string): void => localStorage.setItem(LOCAL_STORAGE_KEY, token);
-export const removeToken = (): void => localStorage.removeItem(LOCAL_STORAGE_KEY);
+export const getToken = async (): Promise<string | null> => await AsyncStorage.getItem(LOCAL_STORAGE_KEY);
+export const storeToken = async (token: string): Promise<void> => await AsyncStorage.setItem(LOCAL_STORAGE_KEY, token);
+export const removeToken = async (): Promise<void> => await AsyncStorage.removeItem(LOCAL_STORAGE_KEY);
 
 const decodeSlice = (encoded: string): any => JSON.parse(atob(encoded));
 

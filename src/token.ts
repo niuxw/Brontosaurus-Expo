@@ -10,13 +10,13 @@ import { getToken, parseToken } from "./util";
 
 export class Token {
 
-    public static getToken(
+    public static async getToken(
         onInvalid: (() => void) | null,
         applicationKey: string,
-        getTokenFunc: () => string | null = getToken,
-    ): Token | null {
+        getTokenFunc: () => Promise<string | null> = getToken,
+    ): Promise<Token | null> {
 
-        const token: string | null = getTokenFunc();
+        const token: string | null = await getTokenFunc();
 
         if (token) {
 
@@ -230,6 +230,5 @@ export class Token {
         if (this._onInvalid) {
             this._onInvalid();
         }
-        throw new Error('[Brontosaurus-Web] Invalid Token');
     }
 }

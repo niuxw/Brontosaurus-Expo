@@ -8,6 +8,7 @@ import * as React from 'react';
 import { Dimensions, View, WebView, ViewStyle, NativeSyntheticEvent, WebViewMessageEventData } from 'react-native';
 import { Brontosaurus } from './config';
 import { PostMessage } from './declare';
+import { storeToken } from './util';
 
 export type LoginViewProps = {
 
@@ -40,13 +41,14 @@ export class LoginView extends React.Component<LoginViewProps> {
         </View>);
     }
 
-    private _handleMessage(event: NativeSyntheticEvent<WebViewMessageEventData>): void {
+    private async _handleMessage(event: NativeSyntheticEvent<WebViewMessageEventData>): Promise<void> {
 
         const data: string = decodeURIComponent(event.nativeEvent.data);
 
         try {
 
             const message: PostMessage = JSON.parse(decodeURIComponent(data));
+            await storeToken(message.token);
             this.props.onSucceed();
         } catch (err) {
 

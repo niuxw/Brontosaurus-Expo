@@ -5,16 +5,32 @@
  */
 
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native';
 import { LoginView, Brontosaurus } from './src';
 
-const config = Brontosaurus.hydrate('', '');
+const config = Brontosaurus.hydrate('', '', () => console.log('redirect'));
 
 export default function App() {
 
+  const [view, setView] = React.useState('Login');
+
   return (
     <View style={styles.container}>
-      <LoginView config={config} />
+      {
+        view === 'login' ?
+          <LoginView
+            config={config}
+            onSucceed={() => setView('View')}
+            onFailed={console.log}
+          />
+          : <View>
+            <Text>
+              Logged in
+            </Text>
+            <Button title="Logout" onPress={() => Brontosaurus.logout()}></Button>
+          </View>
+      }
+
     </View>
   );
 }
