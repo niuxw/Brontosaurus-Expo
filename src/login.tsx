@@ -7,12 +7,16 @@
 import * as React from 'react';
 import { Dimensions, View, WebView, ViewStyle, NativeSyntheticEvent, WebViewMessageEventData } from 'react-native';
 import { Brontosaurus } from './config';
+import { PostMessage } from './declare';
 
 export type LoginViewProps = {
 
     readonly config: Brontosaurus;
     readonly height?: number;
     readonly width?: number;
+
+    readonly onSucceed: () => void;
+    readonly onFailed: (reason: any) => void;
 };
 
 export class LoginView extends React.Component<LoginViewProps> {
@@ -38,8 +42,16 @@ export class LoginView extends React.Component<LoginViewProps> {
 
     private _handleMessage(event: NativeSyntheticEvent<WebViewMessageEventData>): void {
 
-        const data: string = event.nativeEvent.data;
-        console.log(data);
+        const data: string = decodeURIComponent(event.nativeEvent.data);
+
+        try {
+
+            const message: PostMessage = JSON.parse(decodeURIComponent(data));
+            this.props.onSucceed();
+        } catch (err) {
+
+            this.props.onFailed(err);
+        }
     }
 
     private _getStyle(): ViewStyle {
