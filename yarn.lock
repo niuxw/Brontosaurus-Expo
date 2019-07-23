@@ -839,6 +839,11 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@brontosaurus/definition@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@brontosaurus/definition/-/definition-1.6.1.tgz#88ac9ff85066b68a0409c3c2946e45e228bbc3b2"
+  integrity sha512-FNJX31Y+nnNIbC47b7JKPPXQ4iN1CZ5lvNUlBpl3Lt8D1zUlr6sUMcpDKUXXVWZg/uHF39rQgqHb2FaksvLOhQ==
+
 "@expo/vector-icons@^10.0.1":
   version "10.0.3"
   resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-10.0.3.tgz#9dec25cf6c29871f2bb1fe932029878c221f1f75"
