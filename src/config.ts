@@ -5,7 +5,7 @@
  */
 
 import { Token } from "./token";
-import { removeToken } from "./util";
+import { removeToken, getToken } from "./util";
 
 export class Brontosaurus {
 
@@ -29,7 +29,8 @@ export class Brontosaurus {
 
     private readonly _server: string;
     private readonly _applicationKey: string;
-    private readonly _onRedirect: () => void;
+
+    private _onRedirect: () => void;
 
     private constructor(server: string, applicationKey: string, onRedirect: () => void) {
 
@@ -57,39 +58,50 @@ export class Brontosaurus {
         return this._applicationKey;
     }
 
-    public static async logout(relogin?: boolean): Promise<Brontosaurus> {
+    public static logout(relogin: boolean = true): Brontosaurus {
 
-        return await this.instance.logout(relogin);
+        return this.instance.logout(relogin);
     }
 
-    public static async hard(beforeRedirect?: () => void | Promise<void>): Promise<Token> {
+    public static hard(beforeRedirect?: () => void | Promise<void>): Token {
 
-        return await this.instance.hard(beforeRedirect);
+        return this.instance.hard(beforeRedirect);
     }
 
-    public static async redirect(beforeRedirect?: () => void | Promise<void>): Promise<Brontosaurus> {
+    public static setRedirect(onRedirect: () => void): Brontosaurus {
 
-        return await this.instance.redirect(beforeRedirect);
+        return this.instance.setRedirect(onRedirect);
     }
 
-    public static async soft(): Promise<Token | null> {
+    public static redirect(beforeRedirect?: () => void | Promise<void>): Brontosaurus {
 
-        return await this.instance.soft();
+        return this.instance.redirect(beforeRedirect);
     }
 
-    public async redirect(beforeRedirect?: () => void | Promise<void>): Promise<this> {
+    public static soft(): Token | null {
 
-        if (beforeRedirect) {
+        return this.instance.soft();
+    }
 
-            await Promise.resolve(beforeRedirect());
-        }
-        this._onRedirect();
+    public setRedirect(onRedirect: () => void): this {
+
+        this._onRedirect = onRedirect;
         return this;
     }
 
-    public async validate(): Promise<this> {
+    public redirect(beforeRedirect?: () => void | Promise<void>): this {
 
-        const token: Token | null = await this._token();
+        if (beforeRedirect) {
+            Promise.resolve(beforeRedirect()).then(() => this._onRedirect());
+        } else {
+            this._onRedirect();
+        }
+        return this;
+    }
+
+    public validate(): this {
+
+        const token: Token | null = this._token();
 
         if (!token) {
             this.redirect();
@@ -104,9 +116,9 @@ export class Brontosaurus {
         return this;
     }
 
-    public async hard(beforeRedirect?: () => void | Promise<void>): Promise<Token> {
+    public hard(beforeRedirect?: () => void | Promise<void>): Token {
 
-        const token: Token | null = await this._token();
+        const token: Token | null = this._token();
 
         if (!token) {
             this.redirect(beforeRedirect);
@@ -115,23 +127,29 @@ export class Brontosaurus {
         return token as Token;
     }
 
-    public async soft(): Promise<Token | null> {
+    public soft(): Token | null {
 
-        const token: Token | null = await this._token();
+        const token: Token | null = this._token();
         return token;
     }
 
-    public async logout(redirect?: boolean): Promise<Brontosaurus> {
+    public logout(redirect?: boolean): Brontosaurus {
 
-        await removeToken();
-        if (redirect) {
-            this.redirect();
-        }
+        removeToken().then(() => {
+            if (redirect) {
+                this.redirect();
+            }
+        });
         return this;
     }
 
-    private async _token(): Promise<Token | null> {
+    private _token(): Token | null {
 
-        return await Token.getToken(this._onRedirect, this._applicationKey);
+        const raw: string | null = getToken();
+
+        if (!raw) {
+            return null;
+        }
+        return Token.create(raw);
     }
 }

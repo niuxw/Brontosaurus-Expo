@@ -5,10 +5,11 @@
  */
 
 import * as React from 'react';
-import { Dimensions, View, WebView, ViewStyle, NativeSyntheticEvent, WebViewMessageEventData } from 'react-native';
+import { Dimensions, NativeSyntheticEvent, View, ViewStyle, WebView, WebViewMessageEventData } from 'react-native';
 import { Brontosaurus } from './config';
 import { PostMessage } from './declare';
-import { storeToken } from './util';
+import { Token } from './token';
+import { getToken, initStorage, removeToken, storeToken } from './util';
 
 export type LoginViewProps = {
 
@@ -20,7 +21,17 @@ export type LoginViewProps = {
     readonly onFailed: (reason: any) => void;
 };
 
-export class LoginView extends React.Component<LoginViewProps> {
+export type LoginViewStates = {
+
+    readonly ready: boolean;
+};
+
+export class LoginView extends React.Component<LoginViewProps, LoginViewStates> {
+
+    public readonly state: LoginViewStates = {
+
+        ready: false,
+    };
 
     public constructor(props: LoginViewProps) {
 
@@ -29,7 +40,31 @@ export class LoginView extends React.Component<LoginViewProps> {
         this._handleMessage = this._handleMessage.bind(this);
     }
 
+    public async componentDidMount() {
+
+        await initStorage();
+
+        const raw: string | null = getToken();
+
+        if (raw) {
+            const token: Token = Token.create(raw);
+            if (token.validate()) {
+                this.props.onSucceed();
+                return;
+            }
+
+            await removeToken();
+            this.setState({ ready: true });
+        } else {
+            this.setState({ ready: true });
+        }
+    }
+
     public render() {
+
+        if (!this.state.ready) {
+            return null;
+        }
 
         return (<View>
             <WebView

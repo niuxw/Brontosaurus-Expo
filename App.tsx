@@ -4,7 +4,7 @@
  * @description App
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 import { LoginView, Brontosaurus } from './src';
 
@@ -14,10 +14,15 @@ export default function App() {
 
   const [view, setView] = React.useState('Login');
 
+  useEffect(() => {
+
+    Brontosaurus.setRedirect(() => setView('Login'));
+  }, []);
+
   return (
     <View style={styles.container}>
       {
-        view === 'login' ?
+        view === 'Login' ?
           <LoginView
             config={config}
             onSucceed={() => setView('View')}
@@ -25,12 +30,11 @@ export default function App() {
           />
           : <View>
             <Text>
-              Logged in
+              Logged in: {Brontosaurus.hard().username}
             </Text>
-            <Button title="Logout" onPress={() => Brontosaurus.logout()}></Button>
+            <Button title="Logout" onPress={() => Brontosaurus.logout(true)}></Button>
           </View>
       }
-
     </View>
   );
 }
