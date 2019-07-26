@@ -9,13 +9,13 @@ import { removeToken, getToken } from "./util";
 
 export class Brontosaurus {
 
-    public static hydrate(server: string, applicationKey: string, onRedirect: () => void) {
+    public static hydrate(server: string, applicationKey: string, onRedirect?: () => void) {
 
         this.register(server, applicationKey, onRedirect);
         return new Brontosaurus(server, applicationKey, onRedirect);
     }
 
-    public static register(server: string, applicationKey: string, onRedirect: () => void): Brontosaurus {
+    public static register(server: string, applicationKey: string, onRedirect?: () => void): Brontosaurus {
 
         if (this._instance) {
             throw new Error('[Brontosaurus-Expo] Registered');
@@ -30,13 +30,13 @@ export class Brontosaurus {
     private readonly _server: string;
     private readonly _applicationKey: string;
 
-    private _onRedirect: () => void;
+    private _onRedirect: (() => void) | null;
 
-    private constructor(server: string, applicationKey: string, onRedirect: () => void) {
+    private constructor(server: string, applicationKey: string, onRedirect?: () => void) {
 
         this._server = server;
         this._applicationKey = applicationKey;
-        this._onRedirect = onRedirect;
+        this._onRedirect = onRedirect || null;
     }
 
     public static get instance(): Brontosaurus {
@@ -92,9 +92,15 @@ export class Brontosaurus {
     public redirect(beforeRedirect?: () => void | Promise<void>): this {
 
         if (beforeRedirect) {
-            Promise.resolve(beforeRedirect()).then(() => this._onRedirect());
+            Promise.resolve(beforeRedirect()).then(() => {
+                if (this._onRedirect) {
+                    this._onRedirect()
+                }
+            });
         } else {
-            this._onRedirect();
+            if (this._onRedirect) {
+                this._onRedirect();
+            }
         }
         return this;
     }
