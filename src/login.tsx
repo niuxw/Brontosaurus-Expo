@@ -66,7 +66,11 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
             return null;
         }
 
-        return (<View>
+        return (<View style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}>
             <WebView
                 scrollEnabled={false}
                 style={this._getStyle()}

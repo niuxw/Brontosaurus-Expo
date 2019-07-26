@@ -63,6 +63,11 @@ export class Brontosaurus {
         return this.instance.logout(relogin);
     }
 
+    public static raw(beforeRedirect?: () => void | Promise<void>): string {
+
+        return this.hard(beforeRedirect).raw;
+    }
+
     public static hard(beforeRedirect?: () => void | Promise<void>): Token {
 
         return this.instance.hard(beforeRedirect);
