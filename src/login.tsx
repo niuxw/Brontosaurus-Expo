@@ -76,6 +76,12 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
                 style={this._getStyle()}
                 onMessage={this._handleMessage}
                 source={{ uri: this._getURI() }}
+                onShouldStartLoadWithRequest={(event) => {
+                    if (event.url.includes(this.props.config.server)) {
+                        return true;
+                    }
+                    return false;
+                }}
             />
         </View>);
     }
