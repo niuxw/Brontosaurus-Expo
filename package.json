@@ -1,13 +1,6 @@
 {
   "main": "node_modules/expo/AppEntry.js",
-  "version": "0.1.1",
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject"
-  },
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SudoDotDog/Brontosaurus-Expo.git"
@@ -22,12 +15,11 @@
   },
   "homepage": "https://github.com/SudoDotDog/Brontosaurus-Expo#readme",
   "dependencies": {
-    "@brontosaurus/definition": "^1.6.1",
-    "expo": "^33.0.0",
-    "react": "16.8.6",
-    "react-dom": "^16.8.6",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
-    "react-native-web": "^0.11.5"
+    "@brontosaurus/definition": "^1.6.1"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
   },
   "devDependencies": {
     "@sudoo/io": "^1.6.0",
@@ -35,7 +27,12 @@
     "@sudoo/triforce": "^1.6.0",
     "@types/react": "^16.8.23",
     "@types/react-native": "^0.60.0",
-    "babel-preset-expo": "^5.2.0"
+    "babel-preset-expo": "^5.2.0",
+    "expo": "^33.0.0",
+    "react": "16.8.6",
+    "react-dom": "^16.8.6",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react-native-web": "^0.11.5"
   },
   "private": true
 }
