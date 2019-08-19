@@ -5,7 +5,7 @@
  */
 
 import * as React from 'react';
-import { Dimensions, NativeSyntheticEvent, View, ViewStyle, WebView, WebViewMessageEventData } from 'react-native';
+import { Dimensions, NativeSyntheticEvent, View, ViewStyle, WebView, WebViewIOSLoadRequestEvent, WebViewMessageEventData } from 'react-native';
 import { Brontosaurus } from './config';
 import { PostMessage } from './declare';
 import { Token } from './token';
@@ -72,18 +72,22 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
             alignItems: 'center',
         }}>
             <WebView
-                scrollEnabled={false}
                 style={this._getStyle()}
-                onMessage={this._handleMessage}
                 source={{ uri: this._getURI() }}
-                onShouldStartLoadWithRequest={(event) => {
-                    if (event.url.includes(this.props.config.server)) {
-                        return true;
-                    }
-                    return false;
-                }}
+                scrollEnabled={false}
+
+                onMessage={this._handleMessage}
+                onShouldStartLoadWithRequest={this._handleStartLoadWithRequest}
             />
         </View>);
+    }
+
+    private _handleStartLoadWithRequest(event: WebViewIOSLoadRequestEvent): boolean {
+
+        if (event.url.includes(this.props.config.server)) {
+            return true;
+        }
+        return false;
     }
 
     private async _handleMessage(event: NativeSyntheticEvent<WebViewMessageEventData>): Promise<void> {
