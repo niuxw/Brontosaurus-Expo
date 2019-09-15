@@ -133,7 +133,7 @@ export class Brontosaurus {
 
         if (!token) {
             this.redirect(beforeRedirect);
-            return null as any;
+            return {} as any;
         }
         return token as Token;
     }
