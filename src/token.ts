@@ -55,6 +55,9 @@ export class Token {
         const displayName: string | undefined = this._body.displayName;
         return displayName;
     }
+    public get email(): string | undefined {
+        return this._body.email;
+    }
     public get name(): string {
         if (this._body.displayName) {
             return this._body.displayName;
