@@ -10,6 +10,15 @@ import { LoginView, Brontosaurus } from './src';
 
 const config = Brontosaurus.hydrate('', '', () => console.log('redirect'));
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
 export default function App() {
 
   const [view, setView] = React.useState('Login');
@@ -19,31 +28,22 @@ export default function App() {
     Brontosaurus.setRedirect(() => setView('Login'));
   }, []);
 
+  if (view === 'Login') {
+    return (<LoginView
+      config={config}
+      onSucceed={() => setView('View')}
+      onFailed={console.log}
+    />);
+  }
+
   return (
     <View style={styles.container}>
-      {
-        view === 'Login' ?
-          <LoginView
-            config={config}
-            onSucceed={() => setView('View')}
-            onFailed={console.log}
-          />
-          : <View>
-            <Text>
-              Logged in: {Brontosaurus.hard().username}
-            </Text>
-            <Button title="Logout" onPress={() => Brontosaurus.logout(true)}></Button>
-          </View>
-      }
+      <View>
+        <Text>
+          Logged in: {Brontosaurus.hard().username}
+        </Text>
+        <Button title="Logout" onPress={() => Brontosaurus.logout(true)}></Button>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

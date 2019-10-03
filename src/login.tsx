@@ -11,6 +11,7 @@ import { PostMessage } from './declare';
 import { Token } from './token';
 import { getToken, initStorage, removeToken, storeToken } from './util';
 import { WebView } from 'react-native-webview';
+import { OnShouldStartLoadWithRequest, WebViewNavigation } from 'react-native-webview/lib/WebViewTypes';
 
 export type LoginViewProps = {
 
@@ -79,10 +80,11 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
 
             onMessage={this._handleMessage}
             onShouldStartLoadWithRequest={this._handleStartLoadWithRequest}
+            injectedJavaScript="window.postMessage = window.ReactNativeWebView.postMessage"
         />);
     }
 
-    private _handleStartLoadWithRequest(event: WebViewIOSLoadRequestEvent): boolean {
+    private _handleStartLoadWithRequest(event: WebViewNavigation): boolean {
 
         if (event.url.includes(this.props.config.server)) {
             return true;
