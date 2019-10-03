@@ -1,6 +1,6 @@
 {
   "main": "node_modules/expo/AppEntry.js",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SudoDotDog/Brontosaurus-Expo.git"
@@ -15,12 +15,12 @@
   },
   "homepage": "https://github.com/SudoDotDog/Brontosaurus-Expo#readme",
   "dependencies": {
-    "@brontosaurus/definition": "^3.0.0",
-    "react-native-webview": "7.0.5"
+    "@brontosaurus/definition": "^3.0.0"
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-webview": "*"
   },
   "devDependencies": {
     "@sudoo/io": "^1.6.1",
@@ -32,7 +32,8 @@
     "expo": "^35.0.0",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
-    "react-native-web": "^0.11.5"
+    "react-native-web": "^0.11.5",
+    "react-native-webview": "7.0.5"
   },
   "private": true
 }

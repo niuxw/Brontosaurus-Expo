@@ -29,5 +29,6 @@ const appPackage: any = {
     dependencies: {
         "@brontosaurus/definition": parent.dependencies["@brontosaurus/definition"],
     },
+    peerDependencies: parent.peerDependencies,
 };
 Fs.writeFileSync(Path.join(appPath, 'package.json'), JSON.stringify(appPackage, null, 2), 'utf8');
