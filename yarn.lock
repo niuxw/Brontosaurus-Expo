@@ -838,10 +838,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@brontosaurus/definition@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@brontosaurus/definition/-/definition-2.3.0.tgz#519bc1ea020c3e0f9ae15837af720520a151d8a4"
-  integrity sha512-varRpzKFUyvj1B6ftBvMbBubCp5mVVgTHqy/ll9ig0ZeXux05q6xSOjKKWlcb/g3/xTem9H6/SGYEJpjvBvS0g==
+"@brontosaurus/definition@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@brontosaurus/definition/-/definition-3.0.0.tgz#363293f1a7b7e1310f33325aeb6a32236cbbbdd7"
+  integrity sha512-7S8DnlKgOE8pmZKBoD2pm7pkTZzmkaT6ML0WxxuvtuQhalbUKIq2C8U4YGxlY62UUF7TlElsptFvVwlKH0JStg==
 
 "@expo/vector-icons@^10.0.1":
   version "10.0.5"

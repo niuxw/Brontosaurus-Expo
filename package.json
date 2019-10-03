@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/SudoDotDog/Brontosaurus-Expo#readme",
   "dependencies": {
-    "@brontosaurus/definition": "^2.3.0"
+    "@brontosaurus/definition": "^3.0.0"
   },
   "peerDependencies": {
     "react": "*",
