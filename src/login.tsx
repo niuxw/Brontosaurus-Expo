@@ -5,11 +5,12 @@
  */
 
 import * as React from 'react';
-import { Dimensions, NativeSyntheticEvent, View, ViewStyle, WebView, WebViewIOSLoadRequestEvent, WebViewMessageEventData } from 'react-native';
+import { Dimensions, NativeSyntheticEvent, View, ViewStyle, WebViewIOSLoadRequestEvent, WebViewMessageEventData, Text } from 'react-native';
 import { Brontosaurus } from './config';
 import { PostMessage } from './declare';
 import { Token } from './token';
 import { getToken, initStorage, removeToken, storeToken } from './util';
+import { WebView } from 'react-native-webview';
 
 export type LoginViewProps = {
 
@@ -38,6 +39,7 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
         super(props);
 
         this._handleMessage = this._handleMessage.bind(this);
+        this._handleStartLoadWithRequest = this._handleStartLoadWithRequest.bind(this);
     }
 
     public async componentDidMount() {
@@ -66,20 +68,18 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
             return null;
         }
 
-        return (<View style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-        }}>
-            <WebView
-                style={this._getStyle()}
-                source={{ uri: this._getURI() }}
-                scrollEnabled={false}
+        return (<WebView
+            style={this._getStyle()}
+            source={{ uri: this._getURI() }}
+            scrollEnabled={false}
+            scalesPageToFit={true}
+            startInLoadingState={true}
+            javaScriptEnabled={true}
+            domStorageEnabled={true}
 
-                onMessage={this._handleMessage}
-                onShouldStartLoadWithRequest={this._handleStartLoadWithRequest}
-            />
-        </View>);
+            onMessage={this._handleMessage}
+            onShouldStartLoadWithRequest={this._handleStartLoadWithRequest}
+        />);
     }
 
     private _handleStartLoadWithRequest(event: WebViewIOSLoadRequestEvent): boolean {

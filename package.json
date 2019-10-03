@@ -15,7 +15,8 @@
   },
   "homepage": "https://github.com/SudoDotDog/Brontosaurus-Expo#readme",
   "dependencies": {
-    "@brontosaurus/definition": "^3.0.0"
+    "@brontosaurus/definition": "^3.0.0",
+    "react-native-webview": "7.0.5"
   },
   "peerDependencies": {
     "react": "*",
@@ -28,10 +29,9 @@
     "@types/react": "^16.9.2",
     "@types/react-native": "0.60.0",
     "babel-preset-expo": "^5.2.0",
-    "expo": "^33.0.0",
-    "react": "16.9.0",
-    "react-dom": "^16.9.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "expo": "^35.0.0",
+    "react": "16.8.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
     "react-native-web": "^0.11.5"
   },
   "private": true
