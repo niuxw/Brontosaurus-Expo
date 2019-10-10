@@ -5,13 +5,13 @@
  */
 
 import * as React from 'react';
-import { Dimensions, NativeSyntheticEvent, View, ViewStyle, WebViewIOSLoadRequestEvent, WebViewMessageEventData, Text } from 'react-native';
+import { Dimensions, NativeSyntheticEvent, ViewStyle, WebViewMessageEventData } from 'react-native';
+import { WebView } from 'react-native-webview';
+import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes';
 import { Brontosaurus } from './config';
 import { PostMessage } from './declare';
 import { Token } from './token';
 import { getToken, initStorage, removeToken, storeToken } from './util';
-import { WebView } from 'react-native-webview';
-import { OnShouldStartLoadWithRequest, WebViewNavigation } from 'react-native-webview/lib/WebViewTypes';
 
 export type LoginViewProps = {
 
@@ -80,7 +80,7 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
 
             onMessage={this._handleMessage}
             onShouldStartLoadWithRequest={this._handleStartLoadWithRequest}
-            injectedJavaScript="window.postMessage = window.ReactNativeWebView.postMessage"
+            injectedJavaScript="window.postMessage = (message) => window.ReactNativeWebView.postMessage(message);"
         />);
     }
 
