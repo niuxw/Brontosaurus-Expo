@@ -33,6 +33,7 @@ export default function App() {
       config={config}
       onSucceed={() => setView('View')}
       onFailed={console.log}
+      onError={console.log}
     />);
   }
 
