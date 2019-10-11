@@ -19,8 +19,9 @@ export type LoginViewProps = {
     readonly height?: number;
     readonly width?: number;
 
-    readonly onSucceed: () => void;
+    readonly onSucceed: (token: Token) => void;
     readonly onFailed: (reason: any) => void;
+    readonly onError: (error: Error) => void;
 };
 
 export type LoginViewStates = {
@@ -50,9 +51,10 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
         const raw: string | null = getToken();
 
         if (raw) {
+
             const token: Token = Token.create(raw);
             if (token.validate()) {
-                this.props.onSucceed();
+                this.props.onSucceed(token);
                 return;
             }
 
@@ -99,8 +101,17 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
         try {
 
             const message: PostMessage = JSON.parse(decodeURIComponent(data));
-            await storeToken(message.token);
-            this.props.onSucceed();
+            const raw: string = message.token;
+
+            if (!raw) {
+                this.props.onError(new Error('Invalid Message'));
+                return;
+            }
+
+            await storeToken(raw);
+
+            const token: Token = Token.create(raw);
+            this.props.onSucceed(token);
         } catch (err) {
 
             this.props.onFailed(err);
