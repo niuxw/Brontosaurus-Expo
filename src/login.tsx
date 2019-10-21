@@ -5,7 +5,7 @@
  */
 
 import * as React from 'react';
-import { Dimensions, NativeSyntheticEvent, ViewStyle, WebViewMessageEventData } from 'react-native';
+import { Dimensions, NativeSyntheticEvent, ViewStyle, WebViewMessageEventData, Keyboard, EmitterSubscription } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes';
 import { Brontosaurus } from './config';
@@ -27,6 +27,7 @@ export type LoginViewProps = {
 export type LoginViewStates = {
 
     readonly ready: boolean;
+    readonly keyboard: boolean;
 };
 
 export class LoginView extends React.Component<LoginViewProps, LoginViewStates> {
@@ -34,12 +35,18 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
     public readonly state: LoginViewStates = {
 
         ready: false,
+        keyboard: false,
     };
+
+    private keyboardWillShowSub: EmitterSubscription | null = null;
+    private keyboardWillHideSub: EmitterSubscription | null = null;
 
     public constructor(props: LoginViewProps) {
 
         super(props);
 
+        this._handlerKeyboardWillShow = this._handlerKeyboardWillShow.bind(this);
+        this._handlerKeyboardWillHide = this._handlerKeyboardWillHide.bind(this);
         this._handleMessage = this._handleMessage.bind(this);
         this._handleStartLoadWithRequest = this._handleStartLoadWithRequest.bind(this);
     }
@@ -47,6 +54,9 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
     public async componentDidMount() {
 
         await initStorage();
+
+        this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this._handlerKeyboardWillShow);
+        this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this._handlerKeyboardWillHide);
 
         const raw: string | null = getToken();
 
@@ -65,6 +75,16 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
         }
     }
 
+    public componentWillUnmount() {
+
+        if (this.keyboardWillShowSub) {
+            this.keyboardWillShowSub.remove();
+        }
+        if (this.keyboardWillHideSub) {
+            this.keyboardWillHideSub.remove();
+        }
+    }
+
     public render() {
 
         if (!this.state.ready) {
@@ -74,7 +94,7 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
         return (<WebView
             style={this._getStyle()}
             source={{ uri: this._getURI() }}
-            scrollEnabled={false}
+            scrollEnabled={this.state.keyboard}
             scalesPageToFit={true}
             startInLoadingState={true}
             javaScriptEnabled={true}
@@ -84,6 +104,20 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
             onShouldStartLoadWithRequest={this._handleStartLoadWithRequest}
             injectedJavaScript="window.postMessage = (message) => window.ReactNativeWebView.postMessage(message);"
         />);
+    }
+
+    private _handlerKeyboardWillShow() {
+
+        this.setState({
+            keyboard: true,
+        });
+    }
+
+    private _handlerKeyboardWillHide() {
+
+        this.setState({
+            keyboard: false,
+        });
     }
 
     private _handleStartLoadWithRequest(event: WebViewNavigation): boolean {
