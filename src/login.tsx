@@ -5,7 +5,7 @@
  */
 
 import * as React from 'react';
-import { Dimensions, NativeSyntheticEvent, ViewStyle, WebViewMessageEventData, Keyboard, EmitterSubscription } from 'react-native';
+import { Dimensions, NativeSyntheticEvent, ViewStyle, Keyboard, EmitterSubscription } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes';
 import { Brontosaurus } from './config';
@@ -128,7 +128,7 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
         return false;
     }
 
-    private async _handleMessage(event: NativeSyntheticEvent<WebViewMessageEventData>): Promise<void> {
+    private async _handleMessage(event: NativeSyntheticEvent<any>): Promise<void> {
 
         const data: string = decodeURIComponent(event.nativeEvent.data);
 
