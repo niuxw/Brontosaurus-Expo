@@ -55,6 +55,9 @@ export class Token {
         const displayName: string | undefined = this._body.displayName;
         return displayName;
     }
+    public get namespace(): string {
+        return this._body.namespace;
+    }
     public get email(): string | undefined {
         return this._body.email;
     }
@@ -78,6 +81,16 @@ export class Token {
     }
     public get combineTags(): string[] {
         return [...this._body.tags, ...(this._body.organizationTags || [])];
+    }
+
+    public getCombined(): string {
+
+        return `${this.namespace}/${this.username}`;
+    }
+
+    public getURLFriendlyCombined(): string {
+
+        return `${this.namespace}_${this.username}`;
     }
 
     public sameApplication(applicationKey: string): boolean {

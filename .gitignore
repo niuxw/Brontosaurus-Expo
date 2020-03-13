@@ -10,3 +10,4 @@ web-build/
 web-report/
 temp.txt
 app
+yarn.lock
