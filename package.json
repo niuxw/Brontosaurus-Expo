@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/SudoDotDog/Brontosaurus-Expo#readme",
   "dependencies": {
-    "@brontosaurus/definition": "^3.2.2"
+    "@brontosaurus/definition": "^3.4.0"
   },
   "peerDependencies": {
     "react": "*",
@@ -24,9 +24,9 @@
   "devDependencies": {
     "@sudoo/io": "^1.7.0",
     "@sudoo/mock": "^1.3.0",
-    "@sudoo/triforce": "^2.2.1",
-    "@types/react": "^16.9.23",
-    "@types/react-native": "0.61.21",
+    "@sudoo/triforce": "^2.4.1",
+    "@types/react": "^16.9.35",
+    "@types/react-native": "0.62.11",
     "babel-preset-expo": "^5.2.0",
     "expo": "^35.0.0",
     "react": "16.8.3",
