@@ -36,6 +36,9 @@ export class Token {
     public get raw(): string {
         return this._raw;
     }
+    public get attempt(): string {
+        return this._header.attempt;
+    }
     public get groups(): string[] {
         return this._body.groups;
     }
