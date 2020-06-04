@@ -181,7 +181,7 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
             `?key=${key}`,
             '&cb=POST',
             '&useragent=Brontosaurus-Expo',
-            `&platform=${platform}`
+            `&platform=${platform}`,
         ].join('');
     }
 }
