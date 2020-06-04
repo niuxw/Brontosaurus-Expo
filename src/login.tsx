@@ -5,7 +5,7 @@
  */
 
 import * as React from 'react';
-import { Dimensions, NativeSyntheticEvent, ViewStyle, Keyboard, EmitterSubscription } from 'react-native';
+import { Dimensions, NativeSyntheticEvent, ViewStyle, Keyboard, EmitterSubscription, Platform } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes';
 import { Brontosaurus } from './config';
@@ -174,6 +174,14 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewStates> 
 
         const server: string = this.props.config.server;
         const key: string = this.props.config.applicationKey;
-        return `${server}?key=${key}&cb=POST`;
+        const platform: string = `${Platform.OS}@${Platform.Version}`;
+
+        return [
+            server,
+            `?key=${key}`,
+            '&cb=POST',
+            '&useragent=Brontosaurus-Expo',
+            `&platform=${platform}`
+        ].join('');
     }
 }
