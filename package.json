@@ -32,7 +32,7 @@
     "expo": "^38.0.9",
     "react": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
-    "react-native-web": "0.13.8",
+    "react-native-web": "0.13.9",
     "react-native-webview": "^10.3.2"
   }
 }
